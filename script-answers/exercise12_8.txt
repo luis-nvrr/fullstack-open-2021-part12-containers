@@ -1,0 +1,54 @@
+$ docker ps
+CONTAINER ID   IMAGE                COMMAND                  CREATED          STATUS          PORTS                                         NAMES
+aacc2188a049   mongo:4.4.10-focal   "docker-entrypoint.s…"   30 minutes ago   Up 30 minutes   0.0.0.0:3456->27017/tcp, :::3456->27017/tcp   todo-backend_mongo_1
+
+$ docker exec -it aacc2188a049 bash
+# mongo -u admin -p admin
+MongoDB shell version v4.4.10
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("44cba8b0-edac-4438-a73d-94869b998236") }
+MongoDB server version: 4.4.10
+Welcome to the MongoDB shell.
+For interactive help, type "help".
+For more comprehensive documentation, see
+        https://docs.mongodb.com/
+Questions? Try the MongoDB Developer Community Forums
+        https://community.mongodb.com
+---
+The server generated these startup warnings when booting:
+        2021-11-26T17:16:18.061+00:00: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+        2021-11-26T17:16:20.084+00:00: /sys/kernel/mm/transparent_hugepage/enabled is 'always'. We suggest setting it to 'never'
+---
+---
+        Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+        metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+        The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+        and anyone you share the URL with. MongoDB may use this information to make product
+        improvements and to suggest MongoDB products and deployment options to you.
+
+        To enable free monitoring, run the following command: db.enableFreeMonitoring()
+        To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+> show dbs
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+todos   0.000GB
+> use todos
+switched to db todos
+> show collections
+todos
+> db.todos.insertOne({"text":"Increase the number of tools in my toolbelt", "done":false})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("61a11ef10a4127ee74aa60a2")
+}
+> db.todos.find({})
+{ "_id" : ObjectId("61a11660f49d3b310904e4e7"), "text" : "Write code", "done" : true }
+{ "_id" : ObjectId("61a11660f49d3b310904e4e8"), "text" : "Learn about containers", "done" : true }
+{ "_id" : ObjectId("61a11ef10a4127ee74aa60a2"), "text" : "Increase the number of tools in my toolbelt", "done" : false }
+> ^C
+bye
+root@aacc2188a049:/# exit
+exit
