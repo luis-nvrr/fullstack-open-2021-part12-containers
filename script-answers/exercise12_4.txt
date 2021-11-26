@@ -1,0 +1,67 @@
+Script started on 2021-11-26 03:30:56+00:00 [TERM="xterm" TTY="/dev/pts/0" COLUMNS="147" LINES="35"]
+# apt install -y curl
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+curl is already the newest version (7.68.0-1ubuntu2.7).
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+# curl -sL https://deb.nodesource.com/setup_16.x | bash
+
+## Installing the NodeSource Node.js 16.x repo...
+
+
+## Populating apt-get cache...
+
++ apt-get update
+Hit:1 http://security.ubuntu.com/ubuntu focal-security InRelease
+Hit:2 http://archive.ubuntu.com/ubuntu focal InRelease
+Get:3 http://archive.ubuntu.com/ubuntu focal-updates InRelease [114 kB]
+Hit:4 https://deb.nodesource.com/node_16.x focal InRelease
+Get:5 http://archive.ubuntu.com/ubuntu focal-backports InRelease [101 kB]
+Fetched 214 kB in 2s (93.9 kB/s)
+Reading package lists... Done
+
+## Confirming "focal" is supported...
+
++ curl -sLf -o /dev/null 'https://deb.nodesource.com/node_16.x/dists/focal/Release'
+
+## Adding the NodeSource signing key to your keyring...
+
++ curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor | tee /usr/share/keyrings/nodesource.gpg >/dev/null
+
+## Creating apt sources list file for the NodeSource Node.js 16.x repo...
+
++ echo 'deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_16.x focal main' > /etc/apt/sources.list.d/nodesource.list
++ echo 'deb-src [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_16.x focal main' >> /etc/apt/sources.list.d/nodesource.list
+
+## Running `apt-get update` for you...
+
++ apt-get update
+Hit:1 https://deb.nodesource.com/node_16.x focal InRelease
+Hit:2 http://security.ubuntu.com/ubuntu focal-security InRelease
+Hit:3 http://archive.ubuntu.com/ubuntu focal InRelease
+Get:4 http://archive.ubuntu.com/ubuntu focal-updates InRelease [114 kB]
+Get:5 http://archive.ubuntu.com/ubuntu focal-backports InRelease [101 kB]
+Fetched 214 kB in 2s (96.4 kB/s)
+Reading package lists... Done
+
+## Run `sudo apt-get install -y nodejs` to install Node.js 16.x and npm
+## You may also need development tools to build native addons:
+     sudo apt-get install gcc g++ make
+## To install the Yarn package manager, run:
+     curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null
+     echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+     sudo apt-get update && sudo apt-get install yarn
+
+
+# apt install -y nodejs
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+nodejs is already the newest version (16.13.0-deb-1nodesource1).
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+# node /usr/src/app/index.js
+Hello World
+#
+
+Script done on 2021-11-26 03:33:03+00:00 [COMMAND_EXIT_CODE="0"]

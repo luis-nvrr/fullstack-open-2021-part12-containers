@@ -1,0 +1,2 @@
+docker start -i xenodochial_gates
+# nano /usr/src/app/index.js
