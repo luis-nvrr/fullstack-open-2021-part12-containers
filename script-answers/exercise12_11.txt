@@ -1,0 +1,21 @@
+$ docker ps
+CONTAINER ID   IMAGE                COMMAND                  CREATED          STATUS          PORTS                                         NAMES
+4ef392849efe   mongo:4.4.10-focal   "docker-entrypoint.s…"   18 minutes ago   Up 18 minutes   0.0.0.0:3456->27017/tcp, :::3456->27017/tcp   todo-backend_mongo_1
+4c504387b981   redis                "docker-entrypoint.s…"   18 minutes ago   Up 18 minutes   0.0.0.0:4567->6379/tcp, :::4567->6379/tcp     todo-backend_redis_1
+
+$ docker exec -it 4c504387b981 bash
+root@4c504387b981:/data# redis-cli
+127.0.0.1:6379> KEYS *
+1) "added_todos"
+127.0.0.1:6379> GET added_todos
+"1"
+127.0.0.1:6379> SET added_todos 9001
+OK
+127.0.0.1:6379> DEL added_todos
+(integer) 1
+127.0.0.1:6379> GET added_todos
+"2"
+127.0.0.1:6379>
+root@4c504387b981:/data# exit
+exit
+$

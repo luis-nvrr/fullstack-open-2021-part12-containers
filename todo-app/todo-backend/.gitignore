@@ -62,3 +62,6 @@ typings/
 
 # mongo data
 mongo_data
+
+# redis data
+redis_data
