@@ -1,15 +1,15 @@
 db.createUser({
-  user: 'the_username',
-  pwd: 'the_password',
+  user: "admin",
+  pwd: "admin",
   roles: [
     {
-      role: 'dbOwner',
-      db: 'the_database',
+      role: "dbOwner",
+      db: "todos",
     },
   ],
 });
 
-db.createCollection('todos');
+db.createCollection("todos");
 
-db.todos.insert({ text: 'Write code', done: true });
-db.todos.insert({ text: 'Learn about containers', done: false });
+db.todos.insert({ text: "Write code", done: true });
+db.todos.insert({ text: "Learn about containers", done: false });
