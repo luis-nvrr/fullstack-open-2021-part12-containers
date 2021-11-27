@@ -7,13 +7,13 @@ const TodoList = ({ todos, deleteTodo, completeTodo }) => {
       {todos
         .map((todo) => (
           <Todo
-            key={todo.id}
+		key={todo._id}
             todo={todo}
             deleteTodo={deleteTodo}
             completeTodo={completeTodo}
           />
         ))
-        .reduce((acc, cur) => [...acc, <hr />, cur], [])}
+        .reduce((acc, cur, i) => [...acc, <hr key={i}/>, cur], [])}
     </>
   );
 };

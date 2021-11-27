@@ -36,7 +36,7 @@ const Todo = ({ todo, deleteTodo, completeTodo }) => {
   );
 
   return (
-    <div id="todo-item" style={style}>
+    <div id="todo-item" style={style} >
       <span id="todo-text">{todo.text}</span>
       {todo.done ? doneInfo : notDoneInfo}
     </div>
