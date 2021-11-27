@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  app:
+    image: todo-frontend-production
+    build:
+      context: ./todo-frontend/
+      dockerfile: Dockerfile
+    container_name: todo-frontend-production
+    volumes:
+      - ./todo-frontend/nginx.conf:/etc/nginx/nginx.conf:ro
+  debug-helper:
+    image: busybox
+  nginx:
+    image: nginx:1.20.1
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    container_name: reverse-proxy
+  server:
+    image: todo-backend-production
+    build:
+      context: ./todo-backend
+      dockerfile: Dockerfile
+    container_name: todo-backend-production
+    environment:
+      - MONGO_URL=mongodb://admin:admin@mongo:27017/todos
+      - REDIS_URL=//redis:6379
+      - PORT=4000
+  mongo:
+    image: mongo:4.4.10-focal
+    volumes:
+      - ./todo-backend/mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      - ./todo-backend/mongo_data_production:/data/db
+    container_name: todo-mongo-production
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: todos
+  redis:
+    image: redis
+    volumes:
+      - ./todo-backend/redis_data_production:/data
+    container_name: todo-redis-production
+    command: ["redis-server", "--appendonly", "yes"]

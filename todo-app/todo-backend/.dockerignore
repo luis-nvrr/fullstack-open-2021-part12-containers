@@ -3,3 +3,5 @@
 node_modules
 Dockerfile
 .env
+mongo_data*
+redis_data*

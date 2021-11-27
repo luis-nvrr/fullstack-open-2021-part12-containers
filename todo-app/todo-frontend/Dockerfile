@@ -4,11 +4,14 @@ USER node
 
 WORKDIR /home/node
 
+COPY --chown=node:node ./package.json ./package.json
+COPY --chown=node:node ./package-lock.json ./package-lock.json
+
+RUN npm ci --only-production
+
 COPY --chown=node:node . .
 
-RUN npm ci
-
-ENV REACT_APP_BACKEND_URL=http://localhost:4004
+ENV REACT_APP_BACKEND_URL=http://localhost:8080/api/
 
 RUN npm run build
 
@@ -18,6 +21,6 @@ ENV CI=true
 
 RUN ["npm", "test"]
 
-FROM nginx:1.20-alpine
+FROM nginx:1.20.1
 
-COPY --from=test-stage /home/node/build /usr/share/nginx/html
+COPY --from=test-stage /home/node/build /etc/nginx/html
