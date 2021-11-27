@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: dev.Dockerfile
     volumes:
-      - ./:/node/home
+      - ./:/home/node
     ports:
       - 4004:3000
     container_name: todo-backend-dev
