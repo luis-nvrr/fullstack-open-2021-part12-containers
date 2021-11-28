@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  app:
+    image: blogs-frontend-production
+    build:
+      context: ./blogs-frontend/
+      dockerfile: Dockerfile
+    container_name: blogs-frontend-production
+    volumes:
+      - ./blogs-frontend/nginx.conf:/etc/nginx/nginx.conf:ro
+  debug-helper:
+    image: busybox
+  nginx:
+    image: nginx:1.20.1
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    container_name: reverse-proxy
+  server:
+    image: blogs-backend-production
+    build:
+      context: ./blogs-backend
+      dockerfile: Dockerfile
+    container_name: blogs-backend-production
+    environment:
+      MONGODB_URI: mongodb://admin:admin@mongo:27017/blogs
+      PORT: 4000
+      SECRET: blogsappproduction
+  mongo:
+    image: mongo:4.4.10-focal
+    volumes:
+      - ./blogs-backend/mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      - ./blogs-backend/mongo_data_production:/data/db
+    container_name: todo-mongo-production
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: blogs
